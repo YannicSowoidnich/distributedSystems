@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CalcSocketClient/CalcSocketClient.iml" filepath="$PROJECT_DIR$/CalcSocketClient/CalcSocketClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CalcSocketServer/CalcSocketServer.iml" filepath="$PROJECT_DIR$/CalcSocketServer/CalcSocketServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Calculation/Calculation.iml" filepath="$PROJECT_DIR$/Calculation/Calculation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/CalculationImpl/CalculationImpl.iml" filepath="$PROJECT_DIR$/CalculationImpl/CalculationImpl.iml" />
+    </modules>
+  </component>
+</project>

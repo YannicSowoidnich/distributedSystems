@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMICalculation/CalcRMICalculation.iml" filepath="$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMICalculation/CalcRMICalculation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMICalculationImpl/CalcRMICalculationImpl.iml" filepath="$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMICalculationImpl/CalcRMICalculationImpl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMIClient/CalcRMIClient.iml" filepath="$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMIClient/CalcRMIClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMIServer/CalcRMIServer.iml" filepath="$PROJECT_DIR$/Excercise2/5-rmi-task/CalcRMIServer/CalcRMIServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/CalcSocketClient.iml" filepath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/CalcSocketClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/CalcSocketServer.iml" filepath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/CalcSocketServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/4-sockets-task/Calculation/Calculation.iml" filepath="$PROJECT_DIR$/Excercise2/4-sockets-task/Calculation/Calculation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalculationImpl/CalculationImpl.iml" filepath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalculationImpl/CalculationImpl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Excercise2/TestCalc/TestCalc.iml" filepath="$PROJECT_DIR$/Excercise2/TestCalc/TestCalc.iml" />
+    </modules>
+  </component>
+</project>

@@ -11,7 +11,7 @@ import de.unistgt.ipvs.vs.ex1.calcSocketServer.CalcSocketServer;
 // This is the main test program.
 // To start it properly, specify: -Djava.security.policy="${resource_loc:/TestCalc/src/policy.ini}"
 public class CalcTest {
-	
+
 	/**
 	 * @param args
 	 */
@@ -20,7 +20,7 @@ public class CalcTest {
 			System.err.println("Wrong usage: CalcTest <'RMI'|'SCKT'>");
 			return;
 		}
-		
+
 		String srvIP   = "localhost";	// "127.0.0.1"
 		int    srvPort = 12345;
 
@@ -33,7 +33,7 @@ public class CalcTest {
 			return;
 		}
 	}
-	
+
 	private static void rmiTest(String srvIP) {
 		System.out.println("Starting CalcRmiServer on " + srvIP);
 		CalcRmiServer cSrv = new CalcRmiServer(srvIP, "sessionFactory");
@@ -44,7 +44,7 @@ public class CalcTest {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		String url = "//" + srvIP + "/sessionFactory";
 		List<CalcTestRmiClient> ctcs = new ArrayList<CalcTestRmiClient>();
 		for (int i=0; i<1; i++) {		// Adapt maximal no of clients ..
@@ -60,12 +60,12 @@ public class CalcTest {
 			CalcTestRmiClient ctc = ctcs.get(idx);
 			if (!ctc.isFinished()) {
 				idx += 1;
-				if (idx >= ctcs.size()) idx = 0;
 			} else {
 				System.out.println("CalcSocketClient" + idx + " finished with " + ctc.isSuccess());
 				ctcs.remove(idx);
 			}
-			
+			if (idx >= ctcs.size()) idx = 0;
+
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {
@@ -75,7 +75,7 @@ public class CalcTest {
 
 		cSrv.interrupt();
 	}
-	
+
 	private static void socketTest(String srvIP, int srvPort) {
 		System.out.println("Starting CalcSocketServer on " + srvIP + ":" + srvPort);
 		CalcSocketServer cSrv = new CalcSocketServer(srvPort);
@@ -95,12 +95,12 @@ public class CalcTest {
 			CalcTestScktClient ctc = ctcs.get(idx);
 			if (!ctc.isFinished()) {
 				idx += 1;
-				if (idx >= ctcs.size()) idx = 0;
 			} else {
 				System.out.println("CalcSocketClient" + idx + " finished with " + ctc.isSuccess());
 				ctcs.remove(idx);
-			}
-			
+            }
+            if (idx >= ctcs.size()) idx = 0;
+
 			try {
 				Thread.sleep(250);
 			} catch (InterruptedException e) {

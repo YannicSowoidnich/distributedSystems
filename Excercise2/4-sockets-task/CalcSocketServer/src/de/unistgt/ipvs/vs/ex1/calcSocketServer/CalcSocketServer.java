@@ -32,10 +32,6 @@ public class CalcSocketServer extends Thread{
 
 	@Override
 	public void run() {
-		if (port <= 0) {
-			System.err.println("SocketServer listen port not specified!");
-			System.exit(-1);
-		}
 		// Start listening server socket ..
 		try {
 			srvSocket = new ServerSocket(port);
