@@ -108,8 +108,6 @@ public class CalcSocketServer extends Thread {
                     out.println("OK");
                     output = protocol.processInput(input);
 
-                    // 6. after processing every message content from a received message, it sends the content 'FIN' to the client
-                    out.println("FIN");
                     if (output != null) {
 
                         // sends the result of the calculation only when processing '>' character
@@ -223,8 +221,7 @@ public class CalcSocketServer extends Thread {
                             }
                             // '>' defines the end of the message so the result is returned
                         } else if (message.equals(">")) {
-                            output = result.toString();
-                            return output;
+                            sendMessageToClient(message,"FIN");
                         } else {
                             System.out.println("Invalid message content!");
                             sendMessageToClient(message, "ERR");
@@ -239,11 +236,14 @@ public class CalcSocketServer extends Thread {
                 if (type.equals("RES")) {
                     // 10. current calculation result is sent to client with "OK" followed by a single whitespace
                     // character, the operator "RES", another whitespace character and the current calculation value
-                    out.println("OK " + "RES " + result);
+                    out.println("OK " + "RES " + result.toString());
                 } else if (calculatorInfoOperators.contains(type) || type.equals("Number")) {
                     // 9. Each valid content is acknowledged to the client with the content 'OK' followed by a single
                     // whitespace character and the valid content
                     out.println("OK " + content);
+                } else if (type.equals("FIN")){
+                    // 6. after processing every message content from a received message, it sends the content 'FIN' to the client
+                    out.println("FIN");
                 } else {
                     // invalid content is acknowledged with "ERR" followed by a single whitespace character and the invalid content
                     out.println("ERR " + content);

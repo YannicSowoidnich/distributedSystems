@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="01830f14-bfbc-45f8-8f1e-99a2eaf78402" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/src/de/unistgt/ipvs/vs/ex1/calcSocketClient/CalcSocketClient.java" afterPath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/src/de/unistgt/ipvs/vs/ex1/calcSocketClient/CalcSocketClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/src/de/unistgt/ipvs/vs/ex1/calcSocketServer/CalcSocketServer.java" afterPath="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/src/de/unistgt/ipvs/vs/ex1/calcSocketServer/CalcSocketServer.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -15,11 +16,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CalcSocketServer.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CalcSocketServer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/src/de/unistgt/ipvs/vs/ex1/calcSocketServer/CalcSocketServer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="950">
-              <caret line="104" column="65" lean-forward="true" selection-start-line="104" selection-start-column="65" selection-end-line="104" selection-end-column="65" />
+            <state relative-caret-position="277">
+              <caret line="234" column="44" lean-forward="false" selection-start-line="234" selection-start-column="25" selection-end-line="234" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CalcSocketClient.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/src/de/unistgt/ipvs/vs/ex1/calcSocketClient/CalcSocketClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="72" column="21" lean-forward="true" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -39,6 +50,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/src/de/unistgt/ipvs/vs/ex1/calcSocketServer/CalcSocketServer.java" />
+        <option value="$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/src/de/unistgt/ipvs/vs/ex1/calcSocketClient/CalcSocketClient.java" />
       </list>
     </option>
   </component>
@@ -70,9 +82,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -108,18 +120,10 @@
             </path>
             <path>
               <item name="distributedSystems" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CalculationImpl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distributedSystems" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CalculationImpl" type="462c0819:PsiDirectoryNode" />
+              <item name="CalcSocketServer" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="distributedSystems" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CalculationImpl" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="calculationImpl" type="462c0819:PsiDirectoryNode" />
+              <item name="calcSocketServer" type="462c0819:PsiDirectoryNode" />
+              <item name="CalcSocketServer.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
           </expand>
           <select />
@@ -240,12 +244,13 @@
       <workItem from="1510147159553" duration="3509000" />
       <workItem from="1510418453264" duration="1004000" />
       <workItem from="1510446609953" duration="9000" />
-      <workItem from="1510595593510" duration="12309000" />
+      <workItem from="1510595593510" duration="12359000" />
+      <workItem from="1510683474888" duration="7456000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28682000" />
+    <option name="totallyTimeSpent" value="36188000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
@@ -263,7 +268,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16950959" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17110874" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -298,6 +303,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/src/de/unistgt/ipvs/vs/ex1/calcSocketServer/CalcSocketServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/Calculation/src/de/unistgt/ipvs/vs/ex1/calculation/ICalculation.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -317,14 +330,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="900" column="23" lean-forward="false" selection-start-line="900" selection-start-column="23" selection-end-line="900" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/src/de/unistgt/ipvs/vs/ex1/calcSocketClient/CalcSocketClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -353,14 +358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/String.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="2866" column="18" lean-forward="false" selection-start-line="2866" selection-start-column="18" selection-end-line="2866" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -369,10 +366,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_131/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-912">
+          <caret line="110" column="19" lean-forward="false" selection-start-line="110" selection-start-column="19" selection-end-line="110" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketServer/src/de/unistgt/ipvs/vs/ex1/calcSocketServer/CalcSocketServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="950">
-          <caret line="104" column="65" lean-forward="true" selection-start-line="104" selection-start-column="65" selection-end-line="104" selection-end-column="65" />
+        <state relative-caret-position="277">
+          <caret line="234" column="44" lean-forward="false" selection-start-line="234" selection-start-column="25" selection-end-line="234" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Excercise2/4-sockets-task/CalcSocketClient/src/de/unistgt/ipvs/vs/ex1/calcSocketClient/CalcSocketClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="72" column="21" lean-forward="true" selection-start-line="72" selection-start-column="21" selection-end-line="72" selection-end-column="21" />
           <folding />
         </state>
       </provider>
