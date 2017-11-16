@@ -147,9 +147,14 @@ public class CalcSocketServer extends Thread {
                     return null;
                 }
                 // 2. checks if the two characters following '<' are the two digits indicating message length
-                if (!inputUpper.substring(indexOfSmallerThan + 1,
-                        indexOfSmallerThan + 3).trim().matches("-?\\d+(\\.\\d+)?")) {
+                String digitsStr = inputUpper.substring(indexOfSmallerThan + 1,
+                        indexOfSmallerThan + 3).trim();
+                Integer digits = Integer.parseInt(digitsStr);
+                if (!digitsStr.matches("-?\\d+(\\.\\d+)?")) {
                     System.out.println("Message in the wrong format, needs two digits after the '<' Operator!");
+                    return null;
+                    // checks whether the message length equals the two digits which indicate the message length
+                } else if (!digits.equals(input.length())) {
                     return null;
                 }
 
