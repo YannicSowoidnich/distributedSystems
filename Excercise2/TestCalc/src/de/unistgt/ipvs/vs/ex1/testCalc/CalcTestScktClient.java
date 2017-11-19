@@ -1,9 +1,9 @@
 package de.unistgt.ipvs.vs.ex1.testCalc;
 
+import de.unistgt.ipvs.vs.ex1.calcSocketClient.CalcSocketClient;
+
 import java.io.IOException;
 import java.util.Random;
-
-import de.unistgt.ipvs.vs.ex1.calcSocketClient.CalcSocketClient;
 
 // This is the main test program.
 public class CalcTestScktClient extends Thread {
@@ -37,17 +37,17 @@ public class CalcTestScktClient extends Thread {
 	@Override
 	public void run() {
 		csCli.connectTo(srvIP, srvPort);
-
 		success = true;
 
 		Random r = new Random();
 
 		int testNo = r.nextInt(3) + 1;		// Adapt maximal no of known tests ..
-		switch (testNo) {
+		switch (2) {
 		case 1: success = runTest1(); break;
 		case 2: success = runTest2(); break;
 		case 3: success = runTest3(); break;
 		}
+		
 
 		csCli.disconnect();
 
@@ -63,7 +63,7 @@ public class CalcTestScktClient extends Thread {
 				throw new IOException(cliIdx + "> IOException11!");
 			if (!csCli.calculate("<08:rEs>"))
 				throw new IOException(cliIdx + "> IOException12!");
-
+			System.out.println("OKS " + csCli.getRcvdOKs());
 			if (csCli.getCalcRes() != 0 || csCli.getRcvdOKs() != 11 || csCli.getRcvdErs() != 0)
 				throw new IOException(cliIdx + "> Wrong result!");
 		} catch (IOException e) {
