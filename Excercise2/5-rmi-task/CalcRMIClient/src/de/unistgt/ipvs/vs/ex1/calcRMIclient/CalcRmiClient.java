@@ -2,7 +2,8 @@ package de.unistgt.ipvs.vs.ex1.calcRMIclient;
 
 import de.unistgt.ipvs.vs.ex1.calculation.ICalculation;
 
-import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.Collection;
 
 /**
@@ -31,8 +32,8 @@ public class CalcRmiClient {
 			System.setSecurityManager(new SecurityManager());
 		}
 		try {
-			ICalculation comp = (ICalculation) Naming.lookup(url);
-			calc = comp;
+			Registry registry = LocateRegistry.getRegistry();
+			calc = (ICalculation) registry.lookup(url);
 			return true;
 		} catch (Exception e) {
 			System.err.println("init exception:");

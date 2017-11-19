@@ -214,6 +214,9 @@ public class CalcSocketServer extends Thread {
                                         System.out.println("SUB!");
                                         break;
                                     case "MUL":
+                                        if (result.equals(0)) {
+                                            result = 1;
+                                        }
                                         result *= currentNumber;
                                         System.out.println("MUL!");
                                         break;

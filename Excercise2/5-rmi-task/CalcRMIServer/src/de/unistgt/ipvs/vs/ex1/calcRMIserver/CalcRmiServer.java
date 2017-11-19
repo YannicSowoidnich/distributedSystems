@@ -3,7 +3,9 @@ package de.unistgt.ipvs.vs.ex1.calcRMIserver;
 import de.unistgt.ipvs.vs.ex1.calculation.ICalculation;
 import de.unistgt.ipvs.vs.ex1.calculationImpl.CalculationImplFactory;
 
-import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.RemoteServer;
 
 /**
  * Implement the run-method of this class to complete
@@ -31,8 +33,13 @@ public class CalcRmiServer extends Thread {
 			System.setSecurityManager(new SecurityManager());
 		}
 		try {
+			LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
 			ICalculation calcObject = calcFactory.getSession();
-			Naming.rebind(regHost + objName, calcObject);
+			RemoteServer.setLog(System.out);
+
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind(regHost + "/" + objName, calcObject);
+
 			System.out.println("ICalculation bound");
 		} catch (Exception e) {
 			System.err.println("run exception:");
