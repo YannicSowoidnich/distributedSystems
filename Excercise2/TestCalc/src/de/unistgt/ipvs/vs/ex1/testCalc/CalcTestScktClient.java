@@ -42,12 +42,12 @@ public class CalcTestScktClient extends Thread {
 		Random r = new Random();
 
 		int testNo = r.nextInt(3) + 1;		// Adapt maximal no of known tests ..
-		switch (2) {
+		switch (3) {
 		case 1: success = runTest1(); break;
 		case 2: success = runTest2(); break;
 		case 3: success = runTest3(); break;
 		}
-		
+
 
 		csCli.disconnect();
 
@@ -100,6 +100,7 @@ public class CalcTestScktClient extends Thread {
 
 	private boolean runTest3() {
 		System.out.println(cliIdx + "> Test (3) ..");
+		
 
 		try {
 			String req31 = "  MUL  1   ASM  ADD ABC 10    5  SUB 100 ADD10   ADD";
