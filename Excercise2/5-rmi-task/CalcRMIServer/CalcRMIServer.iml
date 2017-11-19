@@ -7,5 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="CalcRMICalculationImpl" exported="" />
+    <orderEntry type="module" module-name="Calculation" exported="" />
+    <orderEntry type="module" module-name="CalculationImpl" exported="" />
+    <orderEntry type="module" module-name="CalcRMICalculation" exported="" />
   </component>
 </module>

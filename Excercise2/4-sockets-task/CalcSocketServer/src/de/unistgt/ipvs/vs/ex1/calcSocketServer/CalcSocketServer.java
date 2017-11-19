@@ -149,90 +149,112 @@ public class CalcSocketServer extends Thread {
                 // 2. checks if the two characters following '<' are the two digits indicating message length
                 String digitsStr = inputUpper.substring(indexOfSmallerThan + 1,
                         indexOfSmallerThan + 3).trim();
-                Integer digits = Integer.parseInt(digitsStr);
+                Integer digits;
                 if (!digitsStr.matches("-?\\d+(\\.\\d+)?")) {
                     System.out.println("Message in the wrong format, needs two digits after the '<' Operator!");
                     return null;
                     // checks whether the message length equals the two digits which indicate the message length
-                } else if (!digits.equals(input.length())) {
-                    return null;
+                } else {
+                    digits = Integer.parseInt(digitsStr);
+                    if (!digits.equals(input.length())) {
+                        System.out.println("The two digits indicating message length don't match the message length!");
+                        return null;
+                    }
                 }
 
                 // 2. get the colon after the two digits
                 String colonInMessage = inputUpper.substring(indexOfSmallerThan + 3, indexOfSmallerThan + 4).trim();
 
                 // 2. get the remaining string after the colon till the end
-                String validContent = inputUpper.substring(indexOfSmallerThan + 4, countGreaterThan + 1).trim();
+                String validContent = inputUpper.substring(indexOfSmallerThan + 4, indexOfGreaterThan).trim();
 
                 // 4. split the content of the message by whitespace, for checking each remaining substring
                 String[] splitMessageContent = validContent.trim().split("\\s+");
 
+                // gets the last ">" substring
+                String endOfMessage = inputUpper.substring(indexOfGreaterThan, indexOfGreaterThan + 1).trim();
+
                 // 2. checks if a colon follows the two digits
                 // 2. and 3. checks if integer values, a calculation or info operator follows the colon
-                if (colonInMessage.equals(":") && splitMessageContent.length > 0) {
-
-                    // checks if the first substring after the colon is a calculator/info operator for correct message format
-                    if (!calculatorInfoOperators.contains(splitMessageContent[0])) {
-                        return null;
-                    }
-
-                    Integer currentNumber;
-                    String currentCalcInfoOperator = "";
-                    for (String message : splitMessageContent) {
-
-                        // 8. checks if current string is an Integer,
-                        // if so calculate the value based on current calculation operator
-                        if (message.matches("-?\\d+(\\.\\d+)?")) {
-                            currentNumber = Integer.parseInt(message);
-
-                            // 9. Each valid content is acknowledged to the client with the content 'OK' followed by single
-                            // whitespace character and the valid content
-                            sendMessageToClient(currentNumber.toString(), "Number");
-                            switch (currentCalcInfoOperator) {
-                                case "ADD":
-                                    result += currentNumber;
-                                    break;
-                                case "SUB":
-                                    result -= currentNumber;
-                                    break;
-                                case "MUL":
-                                    result *= currentNumber;
-                                    break;
-                            }
-                            // 3. checks if a calculation/info operator does not follow the colon or the end of the message '>'
-                        } else if (calculatorInfoOperators.contains(message)) {
-                            int index = calculatorInfoOperators.indexOf(message);
-
-                            // 7. if valid content equals 'ADD', 'SUB' or 'MUL' the calculation operator is changed
-                            switch (message) {
-                                case "ADD":
-                                    calculatorInfoOperators.set(index, "ADDing");
-                                    currentCalcInfoOperator = "ADD";
-                                    sendMessageToClient(message, "ADD");
-                                    break;
-                                case "SUB":
-                                    calculatorInfoOperators.set(index, "SUBtracting");
-                                    currentCalcInfoOperator = "SUB";
-                                    sendMessageToClient(message,"SUB");
-                                    break;
-                                case "MUL":
-                                    calculatorInfoOperators.set(index, "MULtiplying");
-                                    currentCalcInfoOperator = "MUL";
-                                    sendMessageToClient(message,"SUB");
-                                    break;
-                                case "RES":
-                                    sendMessageToClient(message,"RES");
-                                    break;
-                            }
-                            // '>' defines the end of the message so the result is returned
-                        } else if (message.equals(">")) {
-                            sendMessageToClient(message,"FIN");
-                        } else {
-                            System.out.println("Invalid message content!");
-                            sendMessageToClient(message, "ERR");
+                if (colonInMessage.equals(":")) {
+                    System.out.println("Content: " + Arrays.toString(splitMessageContent));
+                    Integer splitMessageLength = splitMessageContent.length;
+                    if (splitMessageLength > 1) {
+                        // checks if the first substring after the colon is a calculator/info operator for correct message format
+                        if (!calculatorInfoOperators.contains(splitMessageContent[0])) {
+                            System.out.println("After the colon there has to follow a calculator/info operator!");
                             return null;
                         }
+
+                        Integer currentNumber;
+                        String currentCalcInfoOperator = "";
+                        for (String message : splitMessageContent) {
+
+                            // 8. checks if current string is an Integer,
+                            // if so calculate the value based on current calculation operator
+                            if (message.matches("-?\\d+(\\.\\d+)?")) {
+                                currentNumber = Integer.parseInt(message);
+
+                                // 9. Each valid content is acknowledged to the client with the content 'OK' followed by single
+                                // whitespace character and the valid content
+                                sendMessageToClient(currentNumber.toString(), "Number");
+                                switch (currentCalcInfoOperator) {
+                                    case "ADD":
+                                        result += currentNumber;
+                                        System.out.println("ADD!");
+                                        break;
+                                    case "SUB":
+                                        result -= currentNumber;
+                                        System.out.println("SUB!");
+                                        break;
+                                    case "MUL":
+                                        result *= currentNumber;
+                                        System.out.println("MUL!");
+                                        break;
+                                }
+                                // 3. checks if a calculation/info operator does not follow the colon or the end of the message '>'
+                            } else if (calculatorInfoOperators.contains(message)) {
+                                int index = calculatorInfoOperators.indexOf(message);
+
+                                // 7. if valid content equals 'ADD', 'SUB' or 'MUL' the calculation operator is changed
+                                switch (message) {
+                                    case "ADD":
+                                        calculatorInfoOperators.set(index, "ADDing");
+                                        currentCalcInfoOperator = "ADD";
+                                        sendMessageToClient(message, "ADDing");
+                                        break;
+                                    case "SUB":
+                                        calculatorInfoOperators.set(index, "SUBtracting");
+                                        currentCalcInfoOperator = "SUB";
+                                        sendMessageToClient(message, "SUBtracting");
+                                        break;
+                                    case "MUL":
+                                        calculatorInfoOperators.set(index, "MULtiplying");
+                                        currentCalcInfoOperator = "MUL";
+                                        sendMessageToClient(message, "MULtiplying");
+                                        break;
+                                }
+                            } else {
+                                System.out.println("Invalid message content!");
+                                sendMessageToClient(message, "ERR");
+                                return null;
+                            }
+                        }
+                        // '>' defines the end of the message so the result is returned
+                        if (endOfMessage.equals(">")) {
+                            sendMessageToClient(endOfMessage, "FIN");
+                        } else {
+                            System.out.println("The message has to end with '>'!");
+                        }
+                    } else if (splitMessageLength.equals(1)){
+                        if (splitMessageContent[0].equals("RES")) {
+                            sendMessageToClient("RES", "RES");
+                        } else {
+                            System.out.println("The rest of the message after the colon has to have valid content!");
+                        }
                     }
+                } else {
+                    System.out.println("There has to be a colon after the two digits!");
                 }
                 return null;
             }

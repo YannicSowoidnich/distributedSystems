@@ -1,8 +1,9 @@
 package de.unistgt.ipvs.vs.ex1.calcRMIclient;
 
-import java.util.Collection;
-
 import de.unistgt.ipvs.vs.ex1.calculation.ICalculation;
+
+import java.rmi.Naming;
+import java.util.Collection;
 
 /**
  * Implement the getCalcRes-, init-, and calculate-method of this class as
@@ -16,17 +17,55 @@ public class CalcRmiClient {
 	}
 
 	public int getCalcRes() {
-		// TODO		
+		try {
+			calc.getResult();
+		} catch (Exception e) {
+			System.err.println("getCalcRes exception:");
+			e.printStackTrace();
+		}
 		return 0;
 	}
 
 	public boolean init(String url) {
-		// TODO
+		if (System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManager());
+		}
+		try {
+			ICalculation comp = (ICalculation) Naming.lookup(url);
+			calc = comp;
+			return true;
+		} catch (Exception e) {
+			System.err.println("init exception:");
+			e.printStackTrace();
+		}
 		return false;
 	}
 
 	public boolean calculate(CalculationMode calcMode, Collection<Integer> numbers) {
-		// TODO
-		return false;
+		try {
+			switch (calcMode) {
+				case ADD:
+					for (Integer number : numbers) {
+						calc.add(number);
+					}
+					break;
+				case SUB:
+					for (Integer number : numbers) {
+						calc.subtract(number);
+					}
+					break;
+				case MUL:
+					for (Integer number : numbers) {
+						calc.multiply(number);
+					}
+					break;
+				default:
+					return false;
+			}
+		} catch (Exception e) {
+			System.err.println("calculate exception:");
+			e.printStackTrace();
+		}
+		return true;
 	}
 }
