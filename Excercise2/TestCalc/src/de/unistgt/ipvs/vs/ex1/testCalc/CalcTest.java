@@ -82,7 +82,7 @@ public class CalcTest {
 		cSrv.start();
 
 		List<CalcTestScktClient> ctcs = new ArrayList<CalcTestScktClient>();
-		for (int i=0; i<1; i++) {		// Adapt maximal no of clients ..
+		for (int i=0; i<2; i++) {		// Adapt maximal no of clients ..
 			System.out.println("Starting CalcSocketClient" + i + " to " + srvIP + ":" + srvPort);
 			CalcSocketClient cCli = new CalcSocketClient();
 			CalcTestScktClient ctc = new CalcTestScktClient(i, cCli, srvIP, srvPort);
