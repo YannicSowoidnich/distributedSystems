@@ -120,7 +120,7 @@ public class CalcSocketServer extends Thread {
         }
 
         class Protocol {
-            private List calculatorInfoOperators = Arrays.asList("ADD", "SUB", "MUL", "RES", "RDY", "OK", "ERR", "FIN");
+            private List calculatorInfoOperators = Arrays.asList("ADD", "SUB", "MUL", "RES", "RDY", "OK", "FIN");
             private String output;
             Integer result = 0;
 
@@ -144,6 +144,7 @@ public class CalcSocketServer extends Thread {
                     inputUpper = inputUpper.substring(indexOfSmallerThan, indexOfGreaterThan + 1).trim();
                 } else {
                     System.out.println("The message requires the two characters '<' and '>', once each!");
+                    sendMessageToClient(inputUpper, "ERR");
                     return null;
                 }
                 // 2. checks if the two characters following '<' are the two digits indicating message length
@@ -152,12 +153,14 @@ public class CalcSocketServer extends Thread {
                 Integer digits;
                 if (!digitsStr.matches("-?\\d+(\\.\\d+)?")) {
                     System.out.println("Message in the wrong format, needs two digits after the '<' Operator!");
+                    sendMessageToClient(digitsStr, "ERR");
                     return null;
                     // checks whether the message length equals the two digits which indicate the message length
                 } else {
                     digits = Integer.parseInt(digitsStr);
                     if (!digits.equals(input.length())) {
                         System.out.println("The two digits indicating message length don't match the message length!");
+                        sendMessageToClient(digitsStr, "ERR");
                         return null;
                     }
                 }
@@ -181,8 +184,11 @@ public class CalcSocketServer extends Thread {
                     Integer splitMessageLength = splitMessageContent.length;
                     if (splitMessageLength > 1) {
                         // checks if the first substring after the colon is a calculator/info operator for correct message format
-                        if (!calculatorInfoOperators.contains(splitMessageContent[0])) {
+                        if (!(calculatorInfoOperators.contains(splitMessageContent[0]) || splitMessageContent[0].equals("MUL")
+                            || splitMessageContent[0].equals("ADD") || splitMessageContent[0].equals("SUB"))) {
+                            int index = calculatorInfoOperators.indexOf(splitMessageContent[0]);
                             System.out.println("After the colon there has to follow a calculator/info operator!");
+                            sendMessageToClient(splitMessageContent[0], "ERR");
                             return null;
                         }
 
@@ -213,26 +219,48 @@ public class CalcSocketServer extends Thread {
                                         break;
                                 }
                                 // 3. checks if a calculation/info operator does not follow the colon or the end of the message '>'
-                            } else if (calculatorInfoOperators.contains(message)) {
-                                int index = calculatorInfoOperators.indexOf(message);
+                            } else if (calculatorInfoOperators.contains(message) || message.equals("MUL")
+                                    || message.equals("ADD") || message.equals("SUB")) {
+
+                                int index = 0;
+                                if (calculatorInfoOperators.contains(message)) {
+                                    index = calculatorInfoOperators.indexOf(message);
+                                } else {
+                                    switch (message) {
+                                        case "ADD":
+                                            index = calculatorInfoOperators.indexOf("ADDing");
+                                            break;
+                                        case "SUB":
+                                            index = calculatorInfoOperators.indexOf("SUBtracting");
+                                            break;
+                                        case "MUL":
+                                            index = calculatorInfoOperators.indexOf("MULtiplying");
+                                            break;
+                                    }
+                                }
+
+                                System.out.println("INDEX" + index);
 
                                 // 7. if valid content equals 'ADD', 'SUB' or 'MUL' the calculation operator is changed
-                                switch (message) {
-                                    case "ADD":
+                                String currentOpCalc = (String) calculatorInfoOperators.get(index);
+                                if (currentOpCalc.equals("ADD") || currentOpCalc.equals("ADDing")) {
+                                    if (!currentOpCalc.equals("ADDing")) {
                                         calculatorInfoOperators.set(index, "ADDing");
-                                        currentCalcInfoOperator = "ADD";
-                                        sendMessageToClient(message, "ADDing");
-                                        break;
-                                    case "SUB":
+                                    }
+                                    currentCalcInfoOperator = "ADD";
+                                    sendMessageToClient(message, "ADDing");
+                                } else if (currentOpCalc.equals("SUB") || currentOpCalc.equals("SUBtracting")) {
+                                    if (!currentOpCalc.equals("SUBtracting")) {
                                         calculatorInfoOperators.set(index, "SUBtracting");
-                                        currentCalcInfoOperator = "SUB";
-                                        sendMessageToClient(message, "SUBtracting");
-                                        break;
-                                    case "MUL":
+                                    }
+                                    currentCalcInfoOperator = "SUB";
+                                    sendMessageToClient(message, "SUBtracting");
+                                } else if (currentOpCalc.equals("MUL") || currentOpCalc.equals("MULtiplying")) {
+                                    if (!currentOpCalc.equals("MULtiplying")) {
                                         calculatorInfoOperators.set(index, "MULtiplying");
-                                        currentCalcInfoOperator = "MUL";
-                                        sendMessageToClient(message, "MULtiplying");
-                                        break;
+                                    }
+                                    currentCalcInfoOperator = "MUL";
+                                    sendMessageToClient(message, "MULtiplying");
                                 }
                             } else {
                                 System.out.println("Invalid message content!");
@@ -245,16 +273,22 @@ public class CalcSocketServer extends Thread {
                             sendMessageToClient(endOfMessage, "FIN");
                         } else {
                             System.out.println("The message has to end with '>'!");
+                            sendMessageToClient(endOfMessage, "ERR");
+                            return null;
                         }
                     } else if (splitMessageLength.equals(1)){
                         if (splitMessageContent[0].equals("RES")) {
                             sendMessageToClient("RES", "RES");
                         } else {
                             System.out.println("The rest of the message after the colon has to have valid content!");
+                            sendMessageToClient(splitMessageContent[0], "ERR");
+                            return null;
                         }
                     }
                 } else {
                     System.out.println("There has to be a colon after the two digits!");
+                    sendMessageToClient(colonInMessage, "ERR");
+                    return null;
                 }
                 return null;
             }
@@ -264,13 +298,14 @@ public class CalcSocketServer extends Thread {
                     // 10. current calculation result is sent to client with "OK" followed by a single whitespace
                     // character, the operator "RES", another whitespace character and the current calculation value
                     out.println("OK " + "RES " + result.toString());
-                } else if (calculatorInfoOperators.contains(type) || type.equals("Number")) {
-                    // 9. Each valid content is acknowledged to the client with the content 'OK' followed by a single
-                    // whitespace character and the valid content
-                    out.println("OK " + content);
                 } else if (type.equals("FIN")){
                     // 6. after processing every message content from a received message, it sends the content 'FIN' to the client
                     out.println("FIN");
+                } else if (calculatorInfoOperators.contains(type) || type.equals("Number")) {
+                    // 9. Each valid content is acknowledged to the client with the content 'OK' followed by a single
+                    // whitespace character and the valid content
+                    System.out.println("Content: " + content + " type: " + type + " " + calculatorInfoOperators.toString());
+                    out.println("OK " + content);
                 } else {
                     // invalid content is acknowledged with "ERR" followed by a single whitespace character and the invalid content
                     out.println("ERR " + content);
