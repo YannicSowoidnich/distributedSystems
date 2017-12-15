@@ -20,36 +20,54 @@ public class VectorClock {
 
 	}
 
+	// E4 a)
+	/**
+	 * Increments the local clock component.
+	 */
 	public void increment() {
-		// TODO
-		/*
-		 * Complete a code to increment the local clock component  
-		 */
-
+		vectorClock[processId] += 1;
 	}
 
+	// E4 a)
+	/**
+	 * Returns the Vector Clock.
+	 * 
+	 * @return vectorClock
+	 */
 	public int[] get() {
-		// TODO 
-		// Complete a code to return the vectorClock value
-
+		return vectorClock;
 	}
 
+	// E4 a)
+	/**
+	 * Updates the local Vector Clock with information from another Vector
+	 * Clock.
+	 * 
+	 * @param other
+	 *            Vector Clock
+	 */
 	public void update(VectorClock other) {
-		// TODO
-		/*
-		 * Implement Supermum operation
-		 */
-
+		for (int i = 0; i < numberOfProcesses; i++) {
+			if (vectorClock[i] < other.get()[i])
+				vectorClock[i] = other.get()[i];
+		}
 	}
 
+	// E4 a)
+	/**
+	 * Checks if a state is consistent regarding two vector clocks.
+	 * 
+	 * @param otherProcessId
+	 * @param other
+	 *            Vector Clock
+	 * @return consistency
+	 */
 	public boolean checkConsistency(int otherProcessId, VectorClock other) {
-		//TODO
-		/*
-		 * Implement a code to check if a state is consist regarding two vector clocks (i.e. this and other). 
-		 * See slide 41 from global state lecture.
-		 */
-
-		
+		if (vectorClock[processId] < other.get()[processId]
+				|| vectorClock[otherProcessId] > other.get()[otherProcessId])
+			return false;
+		else
+			return true;
 	}
 
 }

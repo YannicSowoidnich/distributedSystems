@@ -9,7 +9,7 @@ public class DebugTest {
 		 * To check part (b) set testpart to (1).
 		 * To check part (b) and (c) set testpart to (2).
 		 */
-		int testpart = 1;
+		int testpart = 2;
 		boolean testResult = false;
 		switch (testpart) {
 		case 1:

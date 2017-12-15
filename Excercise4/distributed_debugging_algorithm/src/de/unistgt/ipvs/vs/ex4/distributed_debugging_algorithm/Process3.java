@@ -12,9 +12,61 @@ public class Process3 extends AbstractProcess {
 
 	@Override
 	public void run() {
-		
-		//TODO Implement processes3 (Listing 4) code here!
-		
+
+		// E4 c) implemented processes3 (Listing 4) code
+		// send the initial state to Monitor
+		Message message = new Message(new VectorClock(vectorClock),
+				this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+
+		// line 1
+		this.localVariable = 4;
+		this.vectorClock.increment();
+		// notify the monitor
+		message = new Message(new VectorClock(vectorClock), this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+
+		// line 2
+		this.localVariable = this.localVariable * 2;
+		this.vectorClock.increment();
+		// notify the monitor
+		message = new Message(new VectorClock(vectorClock), this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+
+		// line 3
+		// receive
+		Message receivedMessage = receive(0); // receive from process 0
+		this.vectorClock.update(receivedMessage.getVectorClock());
+		this.localVariable = receivedMessage.getLocalVariable()
+				- this.localVariable;
+		this.vectorClock.increment();
+		// notify the monitor
+		message = new Message(new VectorClock(vectorClock), this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+
+		// line 4
+		this.localVariable = this.localVariable - 2;
+		this.vectorClock.increment();
+		// notify the monitor
+		message = new Message(new VectorClock(vectorClock), this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+
+		// line 5
+		this.localVariable = this.localVariable + 11;
+		this.vectorClock.increment();
+		// notify the monitor
+		message = new Message(new VectorClock(vectorClock), this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+
+		// line 6
+		send(0, message); // send to process 0
+
+		// send terminate signal
+		monitor.processTerminated(this.Id);
+		System.out.printf("process:%d , the local variable= %d\n", this.Id,
+				this.localVariable);
+		// END E4 c)
+
 	}
 
 }

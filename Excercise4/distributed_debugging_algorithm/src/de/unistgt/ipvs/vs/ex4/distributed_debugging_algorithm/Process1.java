@@ -15,7 +15,8 @@ public class Process1 extends AbstractProcess {
 	public void run() {
 
 		// send the initial state to Monitor
-		Message message = new Message(new VectorClock(vectorClock), this.localVariable);
+		Message message = new Message(new VectorClock(vectorClock),
+				this.localVariable);
 		monitor.receiveMessage(this.Id, message);
 
 		// line 1
@@ -42,18 +43,34 @@ public class Process1 extends AbstractProcess {
 		// receive
 		Message receivedMessage = receive(1); // receive from process 1
 		this.vectorClock.update(receivedMessage.getVectorClock());
-		this.localVariable = receivedMessage.getLocalVariable() - this.localVariable;
+		this.localVariable = receivedMessage.getLocalVariable()
+				- this.localVariable;
 		this.vectorClock.increment();
 
 		// notify the monitor
 		message = new Message(new VectorClock(vectorClock), this.localVariable);
 		monitor.receiveMessage(this.Id, message);
 
-		// TODO add part (c) changes here!.
+		// E4 c) added changes
+		// line 6
+		send(2, message); // send to process 2
+
+		// line 7
+		// receive
+		receivedMessage = receive(2); // receive from process 2
+		this.vectorClock.update(receivedMessage.getVectorClock());
+		this.localVariable = receivedMessage.getLocalVariable()
+				- this.localVariable;
+		this.vectorClock.increment();
+		// notify the monitor
+		message = new Message(new VectorClock(vectorClock), this.localVariable);
+		monitor.receiveMessage(this.Id, message);
+		// END E4 c)
 
 		// send terminate signal
 		monitor.processTerminated(this.Id);
-		System.out.printf("process:%d , the local variable= %d\n", this.Id, this.localVariable);
+		System.out.printf("process:%d , the local variable= %d\n", this.Id,
+				this.localVariable);
 	}
 
 }
